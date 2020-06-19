@@ -1,9 +1,10 @@
-var billAmount = document.getElementById('bill-number');
-var percentageTip = document.getElementById('percentage-tip');
-var tipAmount = document.getElementById('tip-amount');
-var total = document.getElementById('total');
-var button = document.getElementById('calculate');
-var errors = document.getElementById('errors');
+var billAmount = document.querySelector('#bill-number');
+var percentageTip = document.querySelector('#percentage-tip');
+var tipAmount = document.querySelector('#tip-amount');
+var total = document.querySelector('#total');
+var button = document.querySelector('#calculate');
+var errors = document.querySelector('#errors');
+var reset = document.querySelector('#reset');
 
 button.addEventListener('click', function() {
     var bill = Number(billAmount.value);
@@ -15,10 +16,22 @@ button.addEventListener('click', function() {
         errors.value = "Enter your percentage tip"
     } else {
        var calculateBillAmount = bill * percentage/100;
-       tipAmount.value = "UGx" + ' ' +  calculateBillAmount;
+       tipAmount.value = "UGx" + ' ' + new Intl.NumberFormat().format(calculateBillAmount);
 
        var calculatedTotal = bill + calculateBillAmount;
-       total.value = "UGx" + ' ' + calculatedTotal;
+       total.value = "UGx" + ' ' + new Intl.NumberFormat().format(calculatedTotal);
+       
+    }
+})
 
+reset.addEventListener('click', function() {
+    var bill = Number(billAmount.value);
+    var percentage = Number(percentageTip.value);
+    if (bill || percentage || tipAmount.value || total.value || errors.value) {
+        billAmount.value = '';
+        percentageTip.value = '';
+        tipAmount.value = '';
+        total.value = '';
+        errors.value = '';
     }
 })
